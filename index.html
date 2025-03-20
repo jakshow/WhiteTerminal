@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>White Terminal - Software Solutions</title>
+    <title>White Terminal</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 9L12 13L8 17' stroke='%23CFAA70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14 17H16' stroke='%23CFAA70' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
     <style>
@@ -20,7 +20,7 @@
 
         [data-theme="light"] {
             --bg-primary: #f8f9fa;
-            --bg-secondary: #e9ecef;
+            --bg-secondary: #d3d6db; /* Adjusted to a greyer shade from #e9ecef */
             --text-primary: #212529;
             --text-secondary: #495057;
             --accent: #CFAA70;
@@ -414,7 +414,7 @@
             font-size: 1.2em;
         }
 
-        .footer-info {
+        .footer-info-was {
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -757,7 +757,7 @@
 
     <div class="transition-section">
         <svg class="wave-bottom" viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 50C240 0 480 100 720 50C960 0 1200 100 1440 50V0H0V50Z" fill="#0a0a0a"/>
+            <path d="M0 50C240 0 480 100 720 50C960 0 1200 100 1440 50V0H0V50Z" fill="var(--bg-primary)"/>
         </svg>
     </div>
 
