@@ -1,305 +1,989 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="White Terminal - A premier technology company">
-    <title>White Terminal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>White Terminal - Software Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 9L12 13L8 17' stroke='%23CFAA70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14 17H16' stroke='%23CFAA70' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
     <style>
-        /* Global Styles */
-        body {
-            font-family: 'Open Sans', sans-serif;
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent: #CFAA70;
+            --card-bg: #1a1a1a;
+            --card-border: #2a2a2a;
+            --footer-bg: rgba(26, 26, 26, 0.8);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #e9ecef;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --accent: #CFAA70;
+            --card-bg: #ffffff;
+            --card-border: #dee2e6;
+            --footer-bg: rgba(248, 249, 250, 0.9);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            box-sizing: border-box;
+            font-family: 'Inter', Arial, sans-serif;
         }
 
-        h1, h2, h3 {
-            font-family: 'Roboto', sans-serif;
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Navbar */
-        nav {
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
-            position: sticky;
+        header {
+            background: var(--bg-primary);
+            padding: 15px 20px;
+            position: fixed;
+            width: 100%;
             top: 0;
+            border-bottom: 1px solid var(--card-border);
             z-index: 1000;
         }
 
-        nav ul {
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            list-style-type: none;
-            padding: 0;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        nav ul li {
-            margin: 0 20px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2em;
         }
 
-        nav ul li a {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            animation: blink-terminal 1s step-end infinite;
+        }
+
+        @keyframes blink-terminal {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .logo-text {
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+
+        .wave-char {
+            display: inline-block;
+            animation: sine-wave 4s ease-in-out infinite;
+        }
+
+        @keyframes sine-wave {
+            0% { color: var(--accent); }
+            25% { color: #E8C68B; }
+            50% { color: var(--text-primary); }
+            75% { color: #E8C68B; }
+            100% { color: var(--accent); }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            position: relative;
+            margin: 10px 15px;
+            text-decoration: none;
+            color: var(--text-secondary);
             transition: color 0.3s ease;
         }
 
-        nav ul li a:hover {
-            color: #007bff;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 10px 15px;
+            padding: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .hamburger svg {
+            width: 30px;
+            height: 30px;
         }
 
         /* Hero Section */
         .hero {
-            background-color: #050F24;
-            color: white;
-            padding: 0px 20px;
-            text-align: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh; /* Full height */
+            justify-content: center;
             text-align: center;
+            padding: 80px 20px 20px;
         }
 
-        .hero h1 {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 18px;
+        .hero-content {
             max-width: 800px;
-            margin: 0 auto 30px;
-        }
-
-        .btn-primary {
-            background-color: #ff7f50;
-            padding: 12px 30px;
-            font-size: 16px;
-            border-radius: 30px;
-            color: white;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #ff5722;
-        }
-
-        /* Scroll Arrow Button */
-        .scroll-down {
-            font-size: 36px;
-            color: white;
-            margin-top: 20px;
-            cursor: pointer;
-            animation: bounce 1.5s infinite;
-        }
-
-        @keyframes bounce {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(10px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        /* About Section */
-        .about {
-            background-color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .about h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .about p {
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* Services Section */
-        .services {
-            background-color: #f9f9f9;
-            padding: 80px 20px;
-            text-align: center;
+        .hero-content h1 {
+            font-size: 2.5em;
+            line-height: 1.2;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
-        .services h2 {
-            font-size: 36px;
-            margin-bottom: 40px;
-        }
-
-        .service-card {
+        .typing {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            white-space: normal;
+            border-right: 3px solid var(--accent);
+            font-family: 'Inter', Arial, sans-serif;
+            font-weight: 400;
             display: inline-block;
-            width: 280px;
-            margin: 20px;
-            padding: 30px;
-            background-color: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border: 2px solid var(--accent);
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(207, 170, 112, 0.5);
+        }
+
+        /* Hero Animations */
+        .hero-content h1, .buttons {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-content h1 {
+            animation-delay: 0.3s;
+        }
+
+        .buttons {
+            animation-delay: 0.9s;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            color: var(--accent);
+            font-size: 2em;
+            margin-bottom: 30px;
             text-align: center;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
+            font-family: 'Poppins', Arial, sans-serif;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
         }
 
-        .service-card:hover {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .cards, .customers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card, .customer {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
             transform: translateY(-10px);
+            border-color: var(--accent);
         }
 
-        .service-card h3 {
-            font-size: 24px;
+        .customer:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(207, 170, 112, 0.3);
+            border-color: var(--accent);
+        }
+
+        .card h3, .customer h3 {
+            color: var(--text-primary);
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .card p, .customer p {
+            color: var(--text-secondary);
+            font-family: 'Inter', Arial, sans-serif;
+            font-weight: 400;
+            font-size: 0.9em;
+        }
+
+        /* Service Header and Icons */
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 15px;
         }
 
-        .service-card p {
-            font-size: 16px;
-            color: #777;
+        .service-icon svg {
+            width: 30px;
+            height: 30px;
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 80px 20px;
-            text-align: center;
-            background-color: white;
+        /* Token Buttons */
+        .token-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
         }
 
-        .contact h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
+        .token-btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 500;
+            font-family: 'Inter', Arial, sans-serif;
+            pointer-events: none;
         }
 
-        .contact form {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: left;
+        /* Customer Section */
+        .customer-section {
+            position: relative;
+            background: var(--bg-primary);
+            padding-bottom: 80px;
+            overflow: hidden;
         }
 
-        .contact input,
-        .contact textarea {
+        /* Transition Section */
+        .transition-section {
+            position: relative;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            overflow: hidden;
+        }
+
+        .wave-bottom {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
+            height: 100px;
         }
 
-        .contact button {
-            padding: 15px 30px;
-            background-color: #050F24;
-            color: white;
-            font-size: 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .contact button:hover {
-            background-color: #102247;
+        .wave-bottom path {
+            fill: var(--bg-primary);
         }
 
         /* Footer */
         footer {
-            background-color: #333;
-            color: white;
-            padding: 20px 0;
+            background: var(--footer-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .footer-watermark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .watermark-icon {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.4;
+        }
+
+        .watermark-icon:nth-child(1) { top: 10%; left: 5%; transform: rotate(15deg); }
+        .watermark-icon:nth-child(2) { top: 60%; left: 20%; transform: rotate(-30deg); }
+        .watermark-icon:nth-child(3) { top: 30%; right: 10%; transform: rotate(45deg); }
+        .watermark-icon:nth-child(4) { bottom: 15%; left: 50%; transform: rotate(-10deg); }
+        .watermark-icon:nth-child(5) { bottom: 5%; right: 5%; transform: rotate(60deg); }
+
+        .footer-left {
+            flex: 0 0 auto;
+            text-align: left;
+        }
+
+        .footer-logo-text {
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-size: 1.2em;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .footer-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-address, .footer-contact {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        .footer-right {
+            flex: 0 0 auto;
+            text-align: left;
+        }
+
+        .footer-right h3 {
+            color: var(--accent);
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .footer-menu {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .footer-menu li {
+            margin-bottom: 10px;
+        }
+
+        .footer-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-menu a:hover {
+            color: var(--accent);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .footer-social a:hover svg {
+            transform: translateY(-3px);
+            stroke: var(--text-primary);
+            filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.5));
+        }
+
+        .footer-bottom {
+            padding: 15px;
+            background: var(--footer-bg);
             text-align: center;
         }
 
-        footer a {
-            color: #ff7f50;
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.85em;
+        }
+
+        .footer-bottom a {
+            color: var(--accent);
             text-decoration: none;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                background: var(--bg-primary);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                border-top: 1px solid var(--card-border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8em;
+            }
+
+            .typing {
+                font-size: 1em;
+            }
+
+            .btn {
+                padding: 8px 20px;
+                font-size: 0.85em;
+            }
+
+            .section {
+                padding: 40px 15px;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            .card, .customer {
+                padding: 15px;
+            }
+
+            .service-icon svg {
+                width: 25px;
+                height: 25px;
+            }
+
+            .transition-section {
+                height: 80px;
+            }
+
+            .wave-bottom {
+                height: 80px;
+            }
+
+            .footer-main {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .footer-left, .footer-right {
+                flex: 1 1 100%;
+                margin-bottom: 20px;
+            }
+
+            .footer-info-item {
+                justify-content: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .nav-links a, .theme-toggle {
+                margin: 10px 10px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2em;
+            }
+
+            .typing {
+                font-size: 1.1em;
+            }
+
+            .cards, .customers {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .customer {
+                text-align: left;
+            }
         }
     </style>
 </head>
-
 <body>
-    <!-- Navbar -->
-    <!-- <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav> -->
+    <header>
+        <nav>
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-icon">
+                    <path d="M8 9L12 13L8 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 17H16" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="logo-text">White Terminal</span>
+            </div>
+            <button class="hamburger">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <div class="nav-links">
+                <a href="#hero">Home</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#customers">Customers</a>
+                <a href="#contact">Contact</a>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="sun-icon">
+                        <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#CFAA70" stroke-width="2"/>
+                        <path d="M12 2V4" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M12 20V22" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4.93 4.93L6.34 6.34" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M17.66 17.66L19.07 19.07" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M2 12H4" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M20 12H22" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M4.93 19.07L6.34 17.66" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M17.66 6.34L19.07 4.93" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="moon-icon" style="display: none;">
+                        <path d="M21 12.79C20.6786 13.9679 20.0666 15.0529 19.2131 15.9064C18.3596 16.7599 17.2746 17.3719 16.0967 17.6933C14.9188 18.0147 13.6865 17.9346 12.5357 17.4626C11.3848 16.9906 10.3569 16.1468 9.58574 15.0157C8.81459 13.8847 8.33083 12.5091 8.18918 11.0682C8.04754 9.62736 8.25266 8.17175 8.78125 6.831C9.30985 5.49025 10.1456 4.31009 11.2118 3.39518C12.278 2.48026 13.5389 1.85862 14.89 1.58C14.3256 2.816 14.0531 4.16857 14.0959 5.52856C14.1387 6.88855 14.4954 8.21861 15.1355 9.41108C15.7755 10.6035 16.6808 11.6229 17.7695 12.382C18.8582 13.1412 20.0975 13.6176 21.41 13.77C21.3028 13.4283 21.1671 13.0938 21 12.79Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>Welcome to White Terminal</h1>
-        <p>Hey you, wait for the blast in the software engineering industry.</p>
-        <a href="#services" class="btn-primary">Discover Our Services</a>
-        <!-- Scroll Down Arrow -->
-        <a href="#about" class="scroll-down">&#8595;</a>
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Transforming Tomorrow’s<br>Technology Today</h1>
+            <div class="typing">Empowering Your Business with Cutting-Edge Technology</div>
+            <div class="buttons">
+                <a href="#contact" class="btn">Contact Us</a>
+                <a href="#services" class="btn explore-btn">Explore</a>
+            </div>
+        </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <h2>About Us</h2>
-        <p>At White Terminal, we provide cutting-edge technology solutions designed to empower businesses and individuals
-            alike. Our team of experts is committed to delivering results that drive growth and enhance efficiency. We are
-            passionate about making the future brighter through innovation.</p>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="section" id="services">
         <h2>Our Services</h2>
-        <div class="service-card">
-            <h3>Digitalize any product</h3>
-            <p>We offer expert tech solutions to help you optimize your business strategies and achieve your goals.</p>
-        </div>
-        <div class="service-card">
-            <h3>Software Development</h3>
-            <p>Our team creates custom software solutions tailored to your specific needs, ensuring efficiency and scalability.</p>
-        </div>
-        <div class="service-card">
-            <h3>Website, App, Desktop Software.</h3>
-            <p>You name it, we provide it all with our best output.</p>
+        <div class="cards">
+            <div class="card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12H22" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2V22" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4.93 4.93L19.07 19.07" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4.93 19.07L19.07 4.93" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Web Development</h3>
+                </div>
+                <p>Create responsive and user-friendly websites to meet your business goals.</p>
+            </div>
+            <div class="card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 2H17C18.1 2 19 2.9 19 4V20C19 21.1 18.1 22 17 22H7C5.9 22 5 21.1 5 20V4C5 2.9 5.9 2 7 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 5H15" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 18V19" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10 9H14V13H10V9Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>App Development</h3>
+                </div>
+                <p>Develop high-performance applications powered by advanced, innovative technologies.</p>
+            </div>
+            <div class="card">
+                <div class="service-header">
+                    <div class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Custom Software</h3>
+                </div>
+                <p>Tailored solutions to meet your unique business needs.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2>Contact Us</h2>
-        <form action="#" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+    <section class="section" id="about">
+        <h2>About Us</h2>
+        <div class="cards">
+            <div class="card">
+                <h3>About White Terminal</h3>
+                <p>White Terminal is a rapidly growing software company dedicated to transforming ideas into market-ready products. We prioritize a client-first approach, focusing on user-centric design and efficient market strategies, backed by a skilled development team that ensures swift and reliable delivery.</p>
+                <div class="token-buttons">
+                    <span class="token-btn">Fast-Growing</span>
+                    <span class="token-btn">Client-First</span>
+                    <span class="token-btn">Swift Delivery</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Our Team</h3>
+                <p>Our team at White Terminal is compact yet highly efficient, comprising technically proficient professionals. Each team leader possesses a clear vision for their projects, coupled with exceptional research and development expertise, ensuring solid and innovative solutions.</p>
+                <div class="token-buttons">
+                    <span class="token-btn">Technically Proficient</span>
+                    <span class="token-btn">R&D Experts</span>
+                    <span class="token-btn">Reliable</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Our CEO</h3>
+                <p>White Terminal is led by a visionary CEO with over a decade of experience in the tech industry as a software engineer and CTO. Unconstrained by technology stacks, he excels in marketizing products effectively, ensuring end-user satisfaction while transforming innovative ideas into impactful tech solutions.</p>
+                <div class="token-buttons">
+                    <span class="token-btn">Industry Expert</span>
+                    <span class="token-btn">Visionary</span>
+                    <span class="token-btn">Market Specialist</span>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Footer -->
+    <section class="section customer-section" id="customers">
+        <h2>Our Customers</h2>
+        <div class="customers">
+            <div class="customer">
+                <h3>Digital Security Solution (DSS)</h3>
+                <p>"Enhanced our cybersecurity with innovative tools."</p>
+            </div>
+            <div class="customer">
+                <h3>Innova</h3>
+                <p>"Streamlined our workflows with custom software."</p>
+            </div>
+            <div class="customer">
+                <h3>Smart Retail BD</h3>
+                <p>"Boosted sales through smart AI analytics."</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="transition-section">
+        <svg class="wave-bottom" viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 50C240 0 480 100 720 50C960 0 1200 100 1440 50V0H0V50Z" fill="#0a0a0a"/>
+        </svg>
+    </div>
+
     <footer>
-        <p>&copy; 2025 White Terminal. All rights reserved.</p>
-        <p>Follow us on <a href="#">Facebook</a> | <a href="#">LinkedIn</a> | <a href="#">Twitter</a></p>
+        <div class="footer-main">
+            <div class="footer-watermark">
+                <svg class="watermark-icon" width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 9L12 13L8 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 17H16" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="watermark-icon" width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 9L12 13L8 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 17H16" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="watermark-icon" width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 9L12 13L8 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 17H16" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="watermark-icon" width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 9L12 13L8 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 17H16" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="watermark-icon" width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 9L12 13L8 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 17H16" stroke="#CFAA70" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <span class="footer-logo-text">WhiteTerminal</span>
+                </div>
+                <div class="footer-info">
+                    <div class="footer-info-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="footer-address">15/1, Dinanath Sen Road, Dhaka, Bangladesh</p>
+                    </div>
+                    <div class="footer-info-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 17C22 17.5304 21.7893 18.0391 21.4142 18.4142C21.0391 18.7893 20.5304 19 20 19H4C3.46957 19 2.96086 18.7893 2.58579 18.4142C2.21071 18.0391 2 17.5304 2 17V7C2 6.46957 2.21071 5.96086 2.58579 5.58579C2.96086 5.21071 3.46957 5 4 5H20C20.5304 5 21.0391 5.21071 21.4142 5.58579C21.7893 5.96086 22 6.46957 22 7V17ZM7 9H17V7H7V9ZM7 13H13V11H7V13Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p class="footer-contact">Contact: +88 01552302884</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-right">
+                <h3>Menus</h3>
+                <ul class="footer-menu">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#customers">Customers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="footer-social">
+                    <a href="https://facebook.com" target="_blank">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 9H2V21H6V9Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M4 2C4.53043 2 5.03914 2.21071 5.41421 2.58579C5.78929 2.96086 6 3.46957 6 4C6 4.53043 5.78929 5.03914 5.41421 5.41421C5.03914 5.78929 4.53043 6 4 6C3.46957 6 2.96086 5.78929 2.58579 5.41421C2.21071 5.03914 2 4.53043 2 4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23 3C22.0424 3.67548 20.9821 4.19209 19.86 4.53C19.2577 3.83753 18.4573 3.34671 17.567 3.12396C16.6767 2.90122 15.7395 2.95724 14.8821 3.28446C14.0247 3.61168 13.2884 4.1944 12.773 4.95372C12.2575 5.71304 11.9877 6.61234 12 7.53V8.53C10.2426 8.57557 8.50127 8.18555 6.93101 7.39544C5.36074 6.60532 4.01032 5.43863 3 4C3 4 -1 13 8 17C5.94053 18.398 3.48716 19.0989 1 19C10 24 21 19 21 7.5C20.9991 7.22144 20.9723 6.94359 20.92 6.67C21.9406 5.66351 22.6608 4.39271 23 3Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17 2H7C4.23858 2 2 4.23858 2 7V17C2 19.7614 4.23858 22 7 22H17C19.7614 22 22 19.7614 22 17V7C22 4.23858 19.7614 2 17 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 11.37C16.1234 12.2022 15.9812 13.0522 15.5937 13.799C15.2062 14.5459 14.5931 15.1514 13.8416 15.5297C13.0901 15.908 12.2384 16.0396 11.4077 15.9059C10.5771 15.7723 9.80971 15.3801 9.21479 14.7852C8.61987 14.1903 8.22768 13.4229 8.09402 12.5922C7.96035 11.7615 8.09202 10.9099 8.47028 10.1584C8.84854 9.40685 9.45408 8.79374 10.201 8.40624C10.9479 8.01874 11.7979 7.87658 12.63 8C13.4789 8.12588 14.2648 8.52146 14.8716 9.1283C15.4785 9.73515 15.8741 10.5211 16 11.37Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17.5 6.5H17.51" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 White Terminal. All rights reserved. <a href="#contact">Contact Us</a></p>
+        </div>
     </footer>
-</body>
 
+    <script>
+        // Typing animation with cursor blinking
+        const typingElement = document.querySelector('.typing');
+        const text = typingElement.textContent;
+        typingElement.textContent = '';
+        let i = 0;
+        let isCursorVisible = true;
+
+        function toggleCursor() {
+            isCursorVisible = !isCursorVisible;
+            typingElement.style.borderRightColor = isCursorVisible ? '#CFAA70' : 'transparent';
+            setTimeout(toggleCursor, 700);
+        }
+
+        toggleCursor();
+
+        function type() {
+            if (i < text.length) {
+                typingElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(() => {
+                    typingElement.textContent = '';
+                    i = 0;
+                    type();
+                }, 2000);
+            }
+        }
+
+        type();
+
+        // Card and Section Heading Scroll Animation
+        const cards = document.querySelectorAll('.card, .customer');
+        const sectionHeadings = document.querySelectorAll('.section h2');
+
+        function checkElements() {
+            const triggerBottom = window.innerHeight * 0.8;
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < triggerBottom) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+            sectionHeadings.forEach(heading => {
+                const headingTop = heading.getBoundingClientRect().top;
+                if (headingTop < triggerBottom) {
+                    heading.style.opacity = '1';
+                }
+            });
+        }
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.5s ease-out';
+        });
+
+        sectionHeadings.forEach(heading => {
+            heading.style.opacity = '0';
+        });
+
+        window.addEventListener('scroll', checkElements);
+        checkElements();
+
+        // Smooth scrolling with offset for nav links and Explore button
+        document.querySelectorAll('.nav-links a, .explore-btn').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Split logo text into individual characters
+        const logoText = document.querySelector('.logo-text');
+        const textLogo = logoText.textContent;
+        logoText.textContent = '';
+
+        textLogo.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            const randomDelay = Math.random() * 1;
+            const randomDuration = 3 + Math.random() * 2;
+            span.style.animationDelay = `${randomDelay}s`;
+            span.style.animationDuration = `${randomDuration}s`;
+            span.classList.add('wave-char');
+            logoText.appendChild(span);
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const sunIcon = document.querySelector('.sun-icon');
+        const moonIcon = document.querySelector('.moon-icon');
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
 </html>
