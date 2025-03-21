@@ -30,7 +30,7 @@
 
         [data-theme="light"] {
             --bg-primary: #f8f9fa;
-            --bg-secondary: #d3d6db; /* Adjusted to a greyer shade from #e9ecef */
+            --bg-secondary: #d3d6db;
             --text-primary: #212529;
             --text-secondary: #495057;
             --accent: #CFAA70;
@@ -178,11 +178,15 @@
             justify-content: center;
             text-align: center;
             padding: 80px 20px 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content h1 {
@@ -227,6 +231,59 @@
             color: var(--bg-primary);
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(207, 170, 112, 0.5);
+        }
+
+        /* Hero Wave Effect */
+        .hero-wave-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero-wave {
+            position: absolute;
+            width: 600%; /* Even wider for complete coverage */
+            height: 100px;
+            bottom: 20%;
+            left: 0;
+            animation: waveMove 15s linear infinite; /* Longer duration for smoother flow */
+        }
+
+        .hero-wave path {
+            stroke: #CFAA70;
+            stroke-width: 2;
+            filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.8))
+                   drop-shadow(0 0 10px rgba(207, 170, 112, 0.5));
+            fill: none;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes waveMove {
+            0% {
+                transform: translateX(-66.66%); /* Start far enough left to hide the beginning */
+            }
+            100% {
+                transform: translateX(-33.33%); /* End before the right edge comes into view */
+            }
+        }
+
+        @keyframes glowPulse {
+            0% { 
+                filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.8))
+                       drop-shadow(0 0 10px rgba(207, 170, 112, 0.5));
+            }
+            50% { 
+                filter: drop-shadow(0 0 8px rgba(207, 170, 112, 1))
+                       drop-shadow(0 0 15px rgba(207, 170, 112, 0.7));
+            }
+            100% { 
+                filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.8))
+                       drop-shadow(0 0 10px rgba(207, 170, 112, 0.5));
+            }
         }
 
         /* Hero Animations */
@@ -311,7 +368,6 @@
             font-size: 0.9em;
         }
 
-        /* Service Header and Icons */
         .service-header {
             display: flex;
             align-items: center;
@@ -324,7 +380,6 @@
             height: 30px;
         }
 
-        /* Token Buttons */
         .token-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -343,7 +398,6 @@
             pointer-events: none;
         }
 
-        /* Customer Section */
         .customer-section {
             position: relative;
             background: var(--bg-primary);
@@ -351,7 +405,6 @@
             overflow: hidden;
         }
 
-        /* Transition Section */
         .transition-section {
             position: relative;
             height: 100px;
@@ -371,7 +424,6 @@
             fill: var(--bg-primary);
         }
 
-        /* Footer */
         footer {
             background: var(--footer-bg);
             backdrop-filter: blur(10px);
@@ -508,7 +560,6 @@
             text-decoration: none;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .hamburger {
                 display: block;
@@ -656,6 +707,11 @@
     </header>
 
     <section class="hero" id="hero">
+        <div class="hero-wave-container">
+            <svg class="hero-wave" viewBox="0 0 4320 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 50C120 20 240 80 360 50C480 20 600 80 720 50C840 20 960 80 1080 50C1200 20 1320 80 1440 50C1560 20 1680 80 1800 50C1920 20 2040 80 2160 50C2280 20 2400 80 2520 50C2640 20 2760 80 2880 50C3000 20 3120 80 3240 50C3360 20 3480 80 3600 50C3720 20 3840 80 3960 50C4080 20 4200 80 4320 50" />
+            </svg>
+        </div>
         <div class="hero-content">
             <h1>Transforming Tomorrow’s<br>Technology Today</h1>
             <div class="typing">Empowering Your Business with Cutting-Edge Technology</div>
@@ -811,7 +867,7 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Contact Icon">
                             <path d="M22 17C22 17.5304 21.7893 18.0391 21.4142 18.4142C21.0391 18.7893 20.5304 19 20 19H4C3.46957 19 2.96086 18.7893 2.58579 18.4142C2.21071 18.0391 2 17.5304 2 17V7C2 6.46957 2.21071 5.96086 2.58579 5.58579C2.96086 5.21071 3.46957 5 4 5H20C20.5304 5 21.0391 5.21071 21.4142 5.58579C21.7893 5.96086 22 6.46957 22 7V17ZM7 9H17V7H7V9ZM7 13H13V11H7V13Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <p class="footer-contact">Email: contact@whiteterminal.com</p>
+                        <p class="footer-contact">Contact: +88 01552302884</p>
                     </div>
                 </div>
             </div>
