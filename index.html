@@ -246,11 +246,11 @@
 
         .hero-wave {
             position: absolute;
-            width: 600%; /* Even wider for complete coverage */
+            width: 200%; /* Double the width for seamless looping */
             height: 100px;
             bottom: 20%;
             left: 0;
-            animation: waveMove 15s linear infinite; /* Longer duration for smoother flow */
+            animation: waveMove 15s linear infinite; /* Slower for smoother effect */
         }
 
         .hero-wave path {
@@ -264,10 +264,10 @@
 
         @keyframes waveMove {
             0% {
-                transform: translateX(-66.66%); /* Start far enough left to hide the beginning */
+                transform: translateX(0);
             }
             100% {
-                transform: translateX(-33.33%); /* End before the right edge comes into view */
+                transform: translateX(-50%); /* Move half the width for seamless repeat */
             }
         }
 
@@ -595,6 +595,10 @@
                 font-size: 0.85em;
             }
 
+            .hero-wave {
+                bottom: 10%; /* Move wave lower on mobile to avoid overlapping buttons */
+            }
+
             .section {
                 padding: 40px 15px;
             }
@@ -708,8 +712,8 @@
 
     <section class="hero" id="hero">
         <div class="hero-wave-container">
-            <svg class="hero-wave" viewBox="0 0 4320 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 50C120 20 240 80 360 50C480 20 600 80 720 50C840 20 960 80 1080 50C1200 20 1320 80 1440 50C1560 20 1680 80 1800 50C1920 20 2040 80 2160 50C2280 20 2400 80 2520 50C2640 20 2760 80 2880 50C3000 20 3120 80 3240 50C3360 20 3480 80 3600 50C3720 20 3840 80 3960 50C4080 20 4200 80 4320 50" />
+            <svg class="hero-wave" viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0 50 Q120 20 240 50 T480 50 T720 50 T960 50 T1200 50 T1440 50 T1680 50 T1920 50" />
             </svg>
         </div>
         <div class="hero-content">
@@ -888,7 +892,7 @@
                     </a>
                     <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609  thirty12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M6 9H2V21H6V9Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M4 2C4.53043 2 5.03914 2.21071 5.41421 2.58579C5.78929 2.96086 6 3.46957 6 4C6 4.53043 5.78929 5.03914 5.41421 5.41421C5.03914 5.78929 4.53043 6 4 6C3.46957 6 2.96086 5.78929 2.58579 5.41421C2.21071 5.03914 2 4.53043 2 4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
