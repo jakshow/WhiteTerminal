@@ -18,658 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 9L12 13L8 17' stroke='%23CFAA70' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M14 17H16' stroke='%23CFAA70' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="canonical" href="https://whiteterminal.com/">
-    <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --accent: #CFAA70;
-            --card-bg: #1a1a1a;
-            --card-border: #2a2a2a;
-            --footer-bg: rgba(26, 26, 26, 0.8);
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #f8f9fa;
-            --bg-secondary: #d3d6db;
-            --text-primary: #212529;
-            --text-secondary: #495057;
-            --accent: #CFAA70;
-            --card-bg: #ffffff;
-            --card-border: #dee2e6;
-            --footer-bg: rgba(248, 249, 250, 0.9);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', Arial, sans-serif;
-        }
-
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.3s ease;
-        }
-
-        header {
-            background: var(--bg-primary);
-            padding: 15px 20px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            border-bottom: 1px solid var(--card-border);
-            z-index: 1000;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2em;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            animation: blink-terminal 1s step-end infinite;
-        }
-
-        @keyframes blink-terminal {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .logo-text {
-            color: var(--accent);
-            font-weight: 700;
-            font-family: 'Poppins', Arial, sans-serif;
-        }
-
-        .wave-char {
-            display: inline-block;
-            animation: sine-wave 4s ease-in-out infinite;
-        }
-
-        @keyframes sine-wave {
-            0% { color: var(--accent); }
-            25% { color: #E8C68B; }
-            50% { color: var(--text-primary); }
-            75% { color: #E8C68B; }
-            100% { color: var(--accent); }
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            position: relative;
-            margin: 10px 15px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            margin: 10px 15px;
-            padding: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .hamburger svg {
-            width: 30px;
-            height: 30px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 80px 20px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content h1 {
-            font-size: 2.5em;
-            line-height: 1.2;
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-family: 'Poppins', Arial, sans-serif;
-        }
-
-        .typing {
-            font-size: 1.2em;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            white-space: normal;
-            border-right: 3px solid var(--accent);
-            font-family: 'Inter', Arial, sans-serif;
-            font-weight: 400;
-            display: inline-block;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border: 2px solid var(--accent);
-            border-radius: 25px;
-            text-decoration: none;
-            color: var(--accent);
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .btn:hover {
-            background: var(--accent);
-            color: var(--bg-primary);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(207, 170, 112, 0.5);
-        }
-
-        /* Hero Wave Effect */
-        .hero-wave-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .hero-wave {
-            position: absolute;
-            width: 200%; /* Double the width for seamless looping */
-            height: 100px;
-            bottom: 20%;
-            left: 0;
-            animation: waveMove 15s linear infinite; /* Slower for smoother effect */
-        }
-
-        .hero-wave path {
-            stroke: #CFAA70;
-            stroke-width: 2;
-            filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.8))
-                   drop-shadow(0 0 10px rgba(207, 170, 112, 0.5));
-            fill: none;
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes waveMove {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%); /* Move half the width for seamless repeat */
-            }
-        }
-
-        @keyframes glowPulse {
-            0% { 
-                filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.8))
-                       drop-shadow(0 0 10px rgba(207, 170, 112, 0.5));
-            }
-            50% { 
-                filter: drop-shadow(0 0 8px rgba(207, 170, 112, 1))
-                       drop-shadow(0 0 15px rgba(207, 170, 112, 0.7));
-            }
-            100% { 
-                filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.8))
-                       drop-shadow(0 0 10px rgba(207, 170, 112, 0.5));
-            }
-        }
-
-        /* Hero Animations */
-        .hero-content h1, .buttons {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .hero-content h1 {
-            animation-delay: 0.3s;
-        }
-
-        .buttons {
-            animation-delay: 0.9s;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Sections */
-        .section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section h2 {
-            color: var(--accent);
-            font-size: 2em;
-            margin-bottom: 30px;
-            text-align: center;
-            font-family: 'Poppins', Arial, sans-serif;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .cards, .customers {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card, .customer {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--card-border);
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .customer:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(207, 170, 112, 0.3);
-            border-color: var(--accent);
-        }
-
-        .card h3, .customer h3 {
-            color: var(--text-primary);
-            font-family: 'Poppins', Arial, sans-serif;
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-
-        .card p, .customer p {
-            color: var(--text-secondary);
-            font-family: 'Inter', Arial, sans-serif;
-            font-weight: 400;
-            font-size: 0.9em;
-        }
-
-        .service-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .service-icon svg {
-            width: 30px;
-            height: 30px;
-        }
-
-        .token-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .token-btn {
-            background: var(--accent);
-            color: var(--bg-primary);
-            padding: 4px 8px;
-            border-radius: 15px;
-            font-size: 0.75em;
-            font-weight: 500;
-            font-family: 'Inter', Arial, sans-serif;
-            pointer-events: none;
-        }
-
-        .customer-section {
-            position: relative;
-            background: var(--bg-primary);
-            padding-bottom: 80px;
-            overflow: hidden;
-        }
-
-        .transition-section {
-            position: relative;
-            height: 100px;
-            background: linear-gradient(to bottom, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            overflow: hidden;
-        }
-
-        .wave-bottom {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-        }
-
-        .wave-bottom path {
-            fill: var(--bg-primary);
-        }
-
-        footer {
-            background: var(--footer-bg);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .footer-main {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .footer-watermark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.1;
-        }
-
-        .watermark-icon {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            opacity: 0.4;
-        }
-
-        .watermark-icon:nth-child(1) { top: 10%; left: 5%; transform: rotate(15deg); }
-        .watermark-icon:nth-child(2) { top: 60%; left: 20%; transform: rotate(-30deg); }
-        .watermark-icon:nth-child(3) { top: 30%; right: 10%; transform: rotate(45deg); }
-        .watermark-icon:nth-child(4) { bottom: 15%; left: 50%; transform: rotate(-10deg); }
-        .watermark-icon:nth-child(5) { bottom: 5%; right: 5%; transform: rotate(60deg); }
-
-        .footer-left {
-            flex: 0 0 auto;
-            text-align: left;
-        }
-
-        .footer-logo-text {
-            color: var(--accent);
-            font-weight: 700;
-            font-family: 'Poppins', Arial, sans-serif;
-            font-size: 1.2em;
-        }
-
-        .footer-info-was {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .footer-info-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-address, .footer-contact {
-            color: var(--text-secondary);
-            font-size: 0.9em;
-        }
-
-        .footer-right {
-            flex: 0 0 auto;
-            text-align: left;
-        }
-
-        .footer-right h3 {
-            color: var(--accent);
-            font-family: 'Poppins', Arial, sans-serif;
-            font-weight: 600;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
-        .footer-menu {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 20px;
-        }
-
-        .footer-menu li {
-            margin-bottom: 10px;
-        }
-
-        .footer-menu a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: color 0.3s ease;
-        }
-
-        .footer-menu a:hover {
-            color: var(--accent);
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 15px;
-        }
-
-        .footer-social svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        .footer-social a:hover svg {
-            transform: translateY(-3px);
-            stroke: var(--text-primary);
-            filter: drop-shadow(0 0 5px rgba(207, 170, 112, 0.5));
-        }
-
-        .footer-bottom {
-            padding: 15px;
-            background: var(--footer-bg);
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            color: var(--text-secondary);
-            font-size: 0.85em;
-        }
-
-        .footer-bottom a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                text-align: center;
-                padding: 20px 0;
-                background: var(--bg-primary);
-                position: absolute;
-                top: 100%;
-                left: 0;
-                border-top: 1px solid var(--card-border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .hero-content h1 {
-                font-size: 1.8em;
-            }
-
-            .typing {
-                font-size: 1em;
-            }
-
-            .btn {
-                padding: 8px 20px;
-                font-size: 0.85em;
-            }
-
-            .hero-wave {
-                bottom: 10%; /* Move wave lower on mobile to avoid overlapping buttons */
-            }
-
-            .section {
-                padding: 40px 15px;
-            }
-
-            .section h2 {
-                font-size: 1.5em;
-            }
-
-            .card, .customer {
-                padding: 15px;
-            }
-
-            .service-icon svg {
-                width: 25px;
-                height: 25px;
-            }
-
-            .transition-section {
-                height: 80px;
-            }
-
-            .wave-bottom {
-                height: 80px;
-            }
-
-            .footer-main {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-            }
-
-            .footer-left, .footer-right {
-                flex: 1 1 100%;
-                margin-bottom: 20px;
-            }
-
-            .footer-info-item {
-                justify-content: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .nav-links a, .theme-toggle {
-                margin: 10px 10px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2em;
-            }
-
-            .typing {
-                font-size: 1.1em;
-            }
-
-            .cards, .customers {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 769px) {
-            .customer {
-                text-align: left;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -689,9 +38,9 @@
             <div class="nav-links">
                 <a href="#hero">Home</a>
                 <a href="#services">Services</a>
+                <a href="#partners">Partners</a>
+                <a href="#approach">Our Approach</a>
                 <a href="#about">About</a>
-                <a href="#customers">Customers</a>
-                <a href="#contact">Contact</a>
                 <button class="theme-toggle" aria-label="Toggle theme">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="sun-icon" aria-hidden="true">
                         <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="#CFAA70" stroke-width="2"/>
@@ -722,14 +71,14 @@
             <h1>Transforming Tomorrow’s<br>Technology Today</h1>
             <div class="typing">Empowering Your Business with Cutting-Edge Technology</div>
             <div class="buttons">
-                <a href="#contact" class="btn">Contact Us</a>
+                <a href="#footer" class="btn">Contact Us</a>
                 <a href="#services" class="btn explore-btn">Explore</a>
             </div>
         </div>
     </section>
 
     <section class="section" id="services">
-        <h2>Our Services</h2>
+        <h2>Services</h2>
         <div class="cards">
             <div class="card">
                 <div class="service-header">
@@ -763,6 +112,18 @@
             <div class="card">
                 <div class="service-header">
                     <div class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="UI/UX Design Icon">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 6V12L16 14" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                </div>
+                <p>Design intuitive and visually appealing interfaces to enhance user experience.</p>
+            </div>
+            <div class="card">
+                <div class="service-header">
+                    <div class="service-icon">
                         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Custom Software Icon">
                             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M2 17L12 22L22 17" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -776,8 +137,86 @@
         </div>
     </section>
 
+    <section class="section partner-section" id="partners">
+        <h2>Partners</h2>
+        <div class="partners-wrapper">
+            <div class="partners">
+                <!-- Original Set -->
+                <div class="partner">
+                    <h3>Digital Security Solution (DSS)</h3>
+                    <p>"Enhanced our cybersecurity with innovative tools."</p>
+                </div>
+                <div class="partner">
+                    <h3>Innova</h3>
+                    <p>"Streamlined our workflows with custom software."</p>
+                </div>
+                <div class="partner">
+                    <h3>Smart Retail BD</h3>
+                    <p>"Boosted sales through smart AI analytics."</p>
+                </div>
+                <!-- First Duplicate Set -->
+                <div class="partner">
+                    <h3>Digital Security Solution (DSS)</h3>
+                    <p>"Enhanced our cybersecurity with innovative tools."</p>
+                </div>
+                <div class="partner">
+                    <h3>Innova</h3>
+                    <p>"Streamlined our workflows with custom software."</p>
+                </div>
+                <div class="partner">
+                    <h3>Smart Retail BD</h3>
+                    <p>"Boosted sales through smart AI analytics."</p>
+                </div>
+                <!-- Second Duplicate Set -->
+                <div class="partner">
+                    <h3>Digital Security Solution (DSS)</h3>
+                    <p>"Enhanced our cybersecurity with innovative tools."</p>
+                </div>
+                <div class="partner">
+                    <h3>Innova</h3>
+                    <p>"Streamlined our workflows with custom software."</p>
+                </div>
+                <div class="partner">
+                    <h3>Smart Retail BD</h3>
+                    <p>"Boosted sales through smart AI analytics."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="approach-section" id="approach">
+        <div class="content-wrapper">
+            <h2>Our Approach</h2>
+            <p>We adopt an agile approach to listen to your needs and overcome even the most complex IT challenges. Trust begins with an honest discussion. We get a 360-degree overview of your product by discussing your requirements, existing challenges in the industry, and what we can do to solve them.</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Discovery</h3>
+                        <p>Consultation, Planning, Delivery Roadmap, Align, Requirement Prototyping</p>
+                    </div>
+                    <div class="icon">1</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Design & Build</h3>
+                        <p>Feedback Incorporation, Development, Refine</p>
+                    </div>
+                    <div class="icon">2</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content">
+                        <h3>Delivery</h3>
+                        <p>QA Testing, Release, Retrospective, Pro-Active Support, User Behavior Analysis</p>
+                    </div>
+                    <div class="icon">3</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section" id="about">
-        <h2>About Us</h2>
+        <h2>About</h2>
         <div class="cards">
             <div class="card">
                 <h3>About White Terminal</h3>
@@ -805,24 +244,6 @@
                     <span class="token-btn">Visionary</span>
                     <span class="token-btn">Market Specialist</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section customer-section" id="customers">
-        <h2>Our Customers</h2>
-        <div class="customers">
-            <div class="customer">
-                <h3>Digital Security Solution (DSS)</h3>
-                <p>"Enhanced our cybersecurity with innovative tools."</p>
-            </div>
-            <div class="customer">
-                <h3>Innova</h3>
-                <p>"Streamlined our workflows with custom software."</p>
-            </div>
-            <div class="customer">
-                <h3>Smart Retail BD</h3>
-                <p>"Boosted sales through smart AI analytics."</p>
             </div>
         </div>
     </section>
@@ -866,7 +287,7 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Email Icon">
                             <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <p class="footer-contact">contact@whiteterminal.com</p>
+                        <p class="footer-contact"><a href="mailto:contact@whiteterminal.com">contact@whiteterminal.com</a></p>
                     </div>
                     <div class="footer-info-item">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Location Icon">
@@ -881,9 +302,9 @@
                 <ul class="footer-menu">
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#services">Services</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                    <li><a href="#approach">Our Approach</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#customers">Customers</a></li>
-                    <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="footer-social">
                     <a href="https://facebook.com" target="_blank" aria-label="Facebook">
@@ -893,7 +314,7 @@
                     </a>
                     <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609  thirty12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M6 9H2V21H6V9Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M4 2C4.53043 2 5.03914 2.21071 5.41421 2.58579C5.78929 2.96086 6 3.46957 6 4C6 4.53043 5.78929 5.03914 5.41421 5.41421C5.03914 5.78929 4.53043 6 4 6C3.46957 6 2.96086 5.78929 2.58579 5.41421C2.21071 5.03914 2 4.53043 2 4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2Z" stroke="#CFAA70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -914,147 +335,10 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 White Terminal. All rights reserved. <a href="#contact">Contact Us</a></p>
+            <p>© 2025 White Terminal. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        // Typing animation with cursor blinking
-        const typingElement = document.querySelector('.typing');
-        const text = typingElement.textContent;
-        typingElement.textContent = '';
-        let i = 0;
-        let isCursorVisible = true;
-
-        function toggleCursor() {
-            isCursorVisible = !isCursorVisible;
-            typingElement.style.borderRightColor = isCursorVisible ? '#CFAA70' : 'transparent';
-            setTimeout(toggleCursor, 700);
-        }
-
-        toggleCursor();
-
-        function type() {
-            if (i < text.length) {
-                typingElement.textContent += text.charAt(i);
-                i++;
-                setTimeout(type, 100);
-            } else {
-                setTimeout(() => {
-                    typingElement.textContent = '';
-                    i = 0;
-                    type();
-                }, 2000);
-            }
-        }
-
-        type();
-
-        // Card and Section Heading Scroll Animation
-        const cards = document.querySelectorAll('.card, .customer');
-        const sectionHeadings = document.querySelectorAll('.section h2');
-
-        function checkElements() {
-            const triggerBottom = window.innerHeight * 0.8;
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < triggerBottom) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-            sectionHeadings.forEach(heading => {
-                const headingTop = heading.getBoundingClientRect().top;
-                if (headingTop < triggerBottom) {
-                    heading.style.opacity = '1';
-                }
-            });
-        }
-
-        cards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(50px)';
-            card.style.transition = 'all 0.5s ease-out';
-        });
-
-        sectionHeadings.forEach(heading => {
-            heading.style.opacity = '0';
-        });
-
-        window.addEventListener('scroll', checkElements);
-        checkElements();
-
-        // Smooth scrolling with offset for nav links and Explore button
-        document.querySelectorAll('.nav-links a, .explore-btn').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                const headerHeight = document.querySelector('header').offsetHeight;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.nav-links').classList.remove('active');
-                }
-            });
-        });
-
-        // Split logo text into individual characters
-        const logoText = document.querySelector('.logo-text');
-        const textLogo = logoText.textContent;
-        logoText.textContent = '';
-
-        textLogo.split('').forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            const randomDelay = Math.random() * 1;
-            const randomDuration = 3 + Math.random() * 2;
-            span.style.animationDelay = `${randomDelay}s`;
-            span.style.animationDuration = `${randomDuration}s`;
-            span.classList.add('wave-char');
-            logoText.appendChild(span);
-        });
-
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.theme-toggle');
-        const sunIcon = document.querySelector('.sun-icon');
-        const moonIcon = document.querySelector('.moon-icon');
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                document.documentElement.removeAttribute('data-theme');
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-
-        // Hamburger menu functionality
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>
